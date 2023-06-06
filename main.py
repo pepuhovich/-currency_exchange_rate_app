@@ -1,5 +1,6 @@
-from modules.api_handler import request_latest, get_all_symbols
+from modules.api_handler import request_latest, request_history, get_all_symbols
 from modules.database_handler import show_history
+from colorama import Fore
 
 currency_symbols = get_all_symbols()
 
@@ -10,24 +11,34 @@ def verify_user_input(symbol):
         return False
 
 
+def get_color(today_rate, yesterday_rate):
+    if today_rate >= yesterday_rate:
+        return Fore.GREEN
+    else: 
+        return Fore.RED
+
 
 while True:
     user_input = input('Enter currency pair of which you want to see the exchange rate (example: eur usd):')
     first_currency = str.upper(user_input[:3])
     second_currency = str.upper(user_input[4:])
 
-    currency_1 = verify_user_input(first_currency)
-    currency_2 = verify_user_input(second_currency)
+    check_currency_1 = verify_user_input(first_currency)
+    check_currency_2 = verify_user_input(second_currency)
 
     
-    if currency_1 == True and currency_2 == True:
-        convert_rate = request_latest(first_currency, second_currency)
-        print(f'1 {first_currency} = {convert_rate} {second_currency}')
+    if check_currency_1 == True and check_currency_2 == True:
+        latest_convert_rate = request_latest(first_currency, second_currency)
+        yesterday_convert_rate = request_history(first_currency, second_currency)
+        printing_color = get_color(latest_convert_rate, yesterday_convert_rate)
+
+        print(f'1 {first_currency} = ' + printing_color + f'{latest_convert_rate} {second_currency}')
         break
-    elif currency_1 == True and currency_2 == False:
+
+    elif check_currency_1 == True and check_currency_2 == False:
         print('Second currency symbol is incorrect')
         break
-    elif currency_1 == False and currency_2 == True:
+    elif check_currency_1 == False and check_currency_2 == True:
         print('First currency symbol is incorrect')
         break
     else:
