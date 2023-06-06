@@ -12,7 +12,7 @@ def get_symbols():
     load_response = response.json() 
     symbols_dict = load_response['symbols']
 
-    #Parsing dict's keys into the list as case insestivie strings
+    #Parsing dict's keys into the list as case insenstive strings
     symbols_keys = symbols_dict.keys()
     for key in symbols_keys:
         symbols.append(str.casefold(key))
