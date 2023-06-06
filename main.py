@@ -2,6 +2,8 @@ from modules.api_handler import request_latest, request_history, get_all_symbols
 from modules.database_handler import show_history
 from colorama import Fore
 
+
+# Verify if input currency is supported in API
 currency_symbols = get_all_symbols()
 
 def verify_user_input(symbol):
@@ -10,7 +12,7 @@ def verify_user_input(symbol):
     else:
         return False
 
-
+# Get printing color depenfing on higher/lower rate
 def get_color(today_rate, yesterday_rate):
     if today_rate >= yesterday_rate:
         return Fore.GREEN
@@ -37,10 +39,8 @@ while True:
 
     elif check_currency_1 == True and check_currency_2 == False:
         print('Second currency symbol is incorrect')
-        break
     elif check_currency_1 == False and check_currency_2 == True:
         print('First currency symbol is incorrect')
-        break
     else:
         print('Both currency symbols are incorrect')
-        break
+        

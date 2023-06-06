@@ -1,4 +1,5 @@
 import requests
+from date_time_handler import get_yesterday_date
 
 def request_latest(currency_1, currency_2):
     # Contacting the API
@@ -12,11 +13,12 @@ def request_latest(currency_1, currency_2):
 
 
 def request_history(currency_1, currency_2):
-    # Contacting the API
-    response = requests.get(f'https://v6.exchangerate-api.com/v6/23c357f9e77fa0eb7d4495e4/history/{currency_1}/2023/6/5')
+    yesterday_date = get_yesterday_date()
+    # Contacting the API for all base currency rates from yesterday
+    response = requests.get(f'https://v6.exchangerate-api.com/v6/23c357f9e77fa0eb7d4495e4/history/{currency_1}/{yesterday_date}')
     # Loading the API response into the dictionary
     load_response = response.json() 
-    # Getting the specific value from dict
+    # Getting the specific endpoint currency from dict
     rate = load_response['conversion_rates'][currency_2]
 
     return rate
