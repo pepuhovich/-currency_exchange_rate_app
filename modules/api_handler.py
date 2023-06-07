@@ -1,5 +1,5 @@
 import requests
-from date_time_handler import get_yesterday_date
+from modules.date_handler import get_yesterday_date
 
 def request_latest(currency_1, currency_2):
     # Contacting the API
