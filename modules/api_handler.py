@@ -37,3 +37,10 @@ def get_all_symbols():
         symbols.append(symbol[0])
 
     return symbols
+
+
+def get_conversion_rate(first_currency, second_currency):
+    latest_convert_rate = request_latest(first_currency, second_currency)
+    yesterday_convert_rate = request_history(first_currency, second_currency)
+        
+    return latest_convert_rate, yesterday_convert_rate
