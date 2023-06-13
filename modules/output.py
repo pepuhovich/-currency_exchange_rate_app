@@ -17,7 +17,6 @@ def get_rate(first_currency, second_currency):
     date_time = get_date_time()
     output_dict = {}
     output_dict.update({'date_time': date_time, 'base_curr': first_currency, 'endpoint_curr': second_currency, 'rate': rounded_latest_rate, 'printing_color': printing_color})
-    print(output_dict)
     return output_dict
 
 def print_output_data(base_currency, endpoint_currency, rate, printing_color):

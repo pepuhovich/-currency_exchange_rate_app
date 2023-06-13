@@ -43,3 +43,27 @@ def send_to_db(datetime, base_currency, endpoint_currency, rate):
         if conn is not None:
             conn.commit()
             conn.close()
+
+def load_from_db():
+    conn = None
+    try:
+        database_access = config()
+        conn = psycopg2.connect(**database_access)
+		
+        cursor = conn.cursor()
+        
+        cursor.execute("SELECT * FROM CURRENCY_QUERY_HISTORY")
+        output_history = cursor.fetchall()
+
+        for output in output_history:
+            print(output[0], output[1], output[2], output[3])
+             
+
+        cursor.close()
+    except (Exception, psycopg2.DatabaseError) as error:
+        print(error)
+    finally:
+        if conn is not None:
+            conn.commit()
+            conn.close()
+ 

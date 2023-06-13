@@ -4,7 +4,8 @@ from modules.api_handler import get_all_symbols
 currency_symbols = get_all_symbols()
 
 def get_input():
-    user_response = input('Enter currency pair of which you want to see the exchange rate (example: eur usd):')
+    user_response = input('''Enter currency pair of which you want to see the exchange rate (example: eur usd):
+(Or quit the app using "quit" command or show your query history by entering "history")''')
 
     if user_response == 'quit':
         return 'quit'
