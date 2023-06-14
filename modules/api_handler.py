@@ -1,9 +1,15 @@
+import os
+from dotenv import load_dotenv
 import requests
 from modules.date_handler import get_yesterday_date
 
+# Read API from .env file
+load_dotenv()
+API_KEY = os.getenv('KEY')
+
 def request_latest(currency_1, currency_2):
     # Contacting the API
-    response = requests.get(f'https://v6.exchangerate-api.com/v6/23c357f9e77fa0eb7d4495e4/pair/{currency_1}/{currency_2}')
+    response = requests.get(f'https://v6.exchangerate-api.com/v6/{API_KEY}/pair/{currency_1}/{currency_2}')
     # Loading the API response into the dictionary
     load_response = response.json() 
     # Getting the specific value from dict
@@ -14,7 +20,7 @@ def request_history(currency_1, currency_2):
     # Getting yesterday date for using in API URL
     yesterday_date = get_yesterday_date()
     # Contacting the API for all base currency rates from yesterday
-    response = requests.get(f'https://v6.exchangerate-api.com/v6/23c357f9e77fa0eb7d4495e4/history/{currency_1}/{yesterday_date}')
+    response = requests.get(f'https://v6.exchangerate-api.com/v6/{API_KEY}/history/{currency_1}/{yesterday_date}')
     # Loading the API response into the dictionary
     load_response = response.json() 
     # Getting the specific endpoint currency from dict
