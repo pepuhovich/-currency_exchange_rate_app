@@ -5,11 +5,11 @@ from modules.database_handler import send_to_db, print_from_db
 
 while True:
     user_input = get_input()
-    
-    if user_input == 'quit':
-        print('...closing the app')
+
+    if user_input == "quit":
+        print("...closing the app")
         break
-    elif user_input == 'history':
+    elif user_input == "history":
         print_from_db()
         break
     else:
@@ -17,15 +17,15 @@ while True:
         if verify_input(first_currency, second_currency):
             output_data = get_rate(first_currency, second_currency)
             # Preparing data for printing
-            base_currency = output_data['base_curr']
-            endpoint_currency = output_data['endpoint_curr']
-            rate = output_data['rate']
-            is_rate_higher = output_data['is_higher']
+            base_currency = output_data["base_curr"]
+            endpoint_currency = output_data["endpoint_curr"]
+            rate = output_data["rate"]
+            is_rate_higher = output_data["is_higher"]
             # Print data
             print_output_data(base_currency, endpoint_currency, rate, is_rate_higher)
             # Preparing date for saving in database
-            datetime = output_data['date_time']
+            datetime = output_data["date_time"]
             # Save data in database
             send_to_db(datetime, base_currency, endpoint_currency, rate, is_rate_higher)
         else:
-            print('wrong input')
+            print("wrong input")
