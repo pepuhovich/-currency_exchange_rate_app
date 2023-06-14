@@ -31,7 +31,7 @@ def get_rate(first_currency, second_currency):
             "is_higher": rates_compare_result,
         }
     )
-    
+
     return output_dict
 
 

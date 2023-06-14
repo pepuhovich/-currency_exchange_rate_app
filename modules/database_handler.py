@@ -25,9 +25,9 @@ def send_to_db(datetime, base_currency, endpoint_currency, rate, is_rate_higher)
         # Insert data
         cur.execute(
             """INSERT INTO currency_query_history
-                (date_time, base_currency, endpoint_currency, 
-                conversion_rate, is_rate_higher) 
-                VALUES (%s, %s, %s, %s, %s)""",
+                    (date_time, base_currency, endpoint_currency, 
+                    conversion_rate, is_rate_higher) 
+                    VALUES (%s, %s, %s, %s, %s)""",
             (datetime, base_currency, endpoint_currency, rate, is_rate_higher),
         )
         cur.close()
@@ -55,9 +55,8 @@ def load_from_db():
         print(error)
     finally:
         if conn is not None:
-            conn.commit()
             conn.close()
-            
+
     return query_history
 
 
