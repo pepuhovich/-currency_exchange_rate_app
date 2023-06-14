@@ -1,8 +1,10 @@
 import psycopg2
 from modules.config_parser import config
+from modules.output import get_color
+from colorama import Style
 
     
-def send_to_db(datetime, base_currency, endpoint_currency, rate):
+def send_to_db(datetime, base_currency, endpoint_currency, rate, is_rate_higher):
     conn = None
     try:
         # Load database configuration
@@ -16,11 +18,12 @@ def send_to_db(datetime, base_currency, endpoint_currency, rate):
                     date_time TEXT,
                     base_currency TEXT,
                     endpoint_currency TEXT,
-                    conversion_rate REAL)""")
+                    conversion_rate REAL,
+                    is_rate_higher boolean)""")
         # Insert data
         cur.execute("""INSERT INTO currency_query_history
-                        (date_time, base_currency, endpoint_currency, conversion_rate) 
-                        VALUES (%s, %s, %s, %s)""", (datetime, base_currency, endpoint_currency, rate))
+                        (date_time, base_currency, endpoint_currency, conversion_rate, is_rate_higher) 
+                        VALUES (%s, %s, %s, %s, %s)""", (datetime, base_currency, endpoint_currency, rate, is_rate_higher))
         cur.close()
     except (Exception, psycopg2.DatabaseError) as error:
         print(error)
@@ -40,9 +43,6 @@ def load_from_db():
         # Select database content
         cursor.execute("SELECT * FROM currency_query_history")
         query_history = cursor.fetchall()
-        # Print each output to single line
-        for query in query_history:
-            print(query[0], query[1], query[2], query[3])
         cursor.close()
     except (Exception, psycopg2.DatabaseError) as error:
         print(error)
@@ -50,3 +50,12 @@ def load_from_db():
         if conn is not None:
             conn.commit()
             conn.close()
+    return query_history
+
+def print_from_db():
+    query_history = load_from_db()
+    # Print each output to single line
+    for query in query_history:
+        printing_color = get_color(query[4])
+        print(query[0], query[1], query[2], printing_color, query[3], end='')
+        print(Style.RESET_ALL)

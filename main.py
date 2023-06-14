@@ -1,6 +1,6 @@
 from modules.input import get_input, unpack_input, verify_input
 from modules.output import get_rate, print_output_data
-from modules.database_handler import send_to_db, load_from_db
+from modules.database_handler import send_to_db, print_from_db
 
 
 while True:
@@ -10,7 +10,7 @@ while True:
         print('...closing the app')
         break
     elif user_input == 'history':
-        load_from_db()
+        print_from_db()
         break
     else:
         first_currency, second_currency = unpack_input(user_input)
@@ -20,12 +20,12 @@ while True:
             base_currency = output_data['base_curr']
             endpoint_currency = output_data['endpoint_curr']
             rate = output_data['rate']
-            color = output_data['printing_color']
+            is_rate_higher = output_data['is_higher']
             # Print data
-            print_output_data(base_currency, endpoint_currency, rate, color)
+            print_output_data(base_currency, endpoint_currency, rate, is_rate_higher)
             # Preparing date for saving in database
             datetime = output_data['date_time']
             # Save data in database
-            send_to_db(datetime, base_currency, endpoint_currency, rate)
+            send_to_db(datetime, base_currency, endpoint_currency, rate, is_rate_higher)
         else:
             print('wrong input')
