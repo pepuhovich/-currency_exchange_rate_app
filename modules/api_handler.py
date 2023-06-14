@@ -36,12 +36,11 @@ def request_history(currency_1, currency_2):
     return rate
 
 
+# Verify that given currency codes are supported in the API
 def get_all_symbols():
     symbols = []
     # Contacting the API
-    response = requests.get(
-        "https://v6.exchangerate-api.com/v6/23c357f9e77fa0eb7d4495e4/codes"
-    )
+    response = requests.get("https://v6.exchangerate-api.com/v6/{API_KEY}/codes")
     # Loading the API response into the dictionary
     load_response = response.json()
     symbols_list = load_response["supported_codes"]
@@ -55,5 +54,5 @@ def get_all_symbols():
 def get_conversion_rate(first_currency, second_currency):
     latest_convert_rate = request_latest(first_currency, second_currency)
     yesterday_convert_rate = request_history(first_currency, second_currency)
-    
+
     return latest_convert_rate, yesterday_convert_rate

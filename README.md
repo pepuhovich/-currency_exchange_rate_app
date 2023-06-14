@@ -1,6 +1,6 @@
 # Currency conversion rate app
 
-> :warning: **If you are using mobile browser**: Be very careful here!
+> :warning: **This app uses API key that is valid to 21/06/2023. It needs to be renewed in .env file after this period**
 
 ## How to run the app
 ### Running the database
@@ -9,10 +9,33 @@
     ```
     docker-compose -f docker-compose-pg-only.yml up
     ```
-3. You should see database system is ready to accept connections' at the end of the log. Keep this terminal running.
-    > Running the database is neccessary for app to store history of user's queries
+3. You should see 'database system is ready to accept connections' at the end of the log. Keep this terminal running.
 
 ### Running the app
+
+#### Requirements
+**You need to have installed following Python modules to run this app**<br>
+
+_psycopg2_
+```
+pip install psycopg2
+```
+
+_requests_
+```
+pip install requests
+```
+
+_colorama_
+```
+pip install colorama
+```
+
+_python-dotenv_
+```
+pip install python-dotenv
+```
+#### Starting the app
 1. In a new tab or a window of the terminal, run the app using command:
     ```
     python3 main.py

@@ -20,9 +20,9 @@ def send_to_db(datetime, base_currency, endpoint_currency, rate, is_rate_higher)
                     base_currency TEXT,
                     endpoint_currency TEXT,
                     conversion_rate REAL,
-                    is_rate_higher boolean)"""
+                    is_rate_higher BOOLEAN)"""
         )
-        # Insert data
+        # Insert data to table
         cur.execute(
             """INSERT INTO currency_query_history
                     (date_time, base_currency, endpoint_currency, 
@@ -64,6 +64,7 @@ def print_from_db():
     query_history = load_from_db()
     # Print each output to single line
     for query in query_history:
+        # Query[4] is boolean that decides color of printed rate
         printing_color = get_color(query[4])
         print(query[0], query[1], query[2], printing_color, query[3], end="")
         print(Style.RESET_ALL)

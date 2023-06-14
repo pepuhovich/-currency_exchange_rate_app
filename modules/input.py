@@ -17,9 +17,11 @@ by entering "history")'
 
 
 def unpack_input(user_input):
+    # Format string to uppercase be compatible with API http request
+    # and to be unified in all outputs
     first_currency = str.upper(user_input[:3])
     second_currency = str.upper(user_input[4:])
-    
+
     return first_currency, second_currency
 
 
@@ -35,6 +37,7 @@ def verify_input(symbol_1, symbol_2):
 
 
 def save_input(date_time, first_currency, second_currency, rate):
+    # Create dict from user input to be later saved in database
     data_for_database = {}
     data_for_database.update(
         {

@@ -4,6 +4,7 @@ from datetime import datetime, date, timedelta
 def get_yesterday_date():
     today = date.today()
     yesterday = today - timedelta(days=1)
+    # Format date to be compatible with API http request
     yesterday_formatted = "{dt.year}/{dt.month}/{dt.day}".format(dt=yesterday)
 
     return yesterday_formatted
