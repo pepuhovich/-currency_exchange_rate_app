@@ -40,7 +40,7 @@ def request_history(currency_1, currency_2):
 def get_all_symbols():
     symbols = []
     # Contacting the API
-    response = requests.get("https://v6.exchangerate-api.com/v6/{API_KEY}/codes")
+    response = requests.get(f"https://v6.exchangerate-api.com/v6/{API_KEY}/codes")
     # Loading the API response into the dictionary
     load_response = response.json()
     symbols_list = load_response["supported_codes"]
