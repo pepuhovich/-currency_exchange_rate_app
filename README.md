@@ -1,6 +1,6 @@
 # Currency conversion rate app
 
-> :warning: **This app uses API key that is valid to 21/06/2023. It needs to be renewed in .env file after this period**
+> :warning: **This app uses API key that is valid to 12/10/2023. It needs to be renewed in .env file after this period**
 
 ## How to run the app
 ### Running the database
