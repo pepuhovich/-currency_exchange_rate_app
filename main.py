@@ -2,7 +2,8 @@ from modules.input import get_input, unpack_input, verify_input
 from modules.output import get_rate, print_output_data
 from modules.database_handler import send_to_db, print_from_db
 
-if __name__ == "__main__":
+
+def main():
     while True:
         user_input = get_input()
 
@@ -28,3 +29,7 @@ if __name__ == "__main__":
                 send_to_db(datetime, base_currency, endpoint_currency, rate)
             else:
                 print("wrong input")
+
+
+if __name__ == "__main__":
+    main()
