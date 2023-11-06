@@ -20,12 +20,11 @@ if __name__ == "__main__":
                 base_currency = output_data["base_curr"]
                 endpoint_currency = output_data["endpoint_curr"]
                 rate = output_data["rate"]
-                is_rate_higher = output_data["is_higher"]
                 # Print data
-                print_output_data(base_currency, endpoint_currency, rate, is_rate_higher)
+                print_output_data(base_currency, endpoint_currency, rate)
                 # Preparing date for saving in database
                 datetime = output_data["date_time"]
                 # Save data in database
-                send_to_db(datetime, base_currency, endpoint_currency, rate, is_rate_higher)
+                send_to_db(datetime, base_currency, endpoint_currency, rate)
             else:
                 print("wrong input")

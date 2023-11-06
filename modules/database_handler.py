@@ -1,10 +1,8 @@
 import psycopg2
 from modules.config_parser import config
-from modules.output import get_color
-from colorama import Style
 
 
-def send_to_db(datetime, base_currency, endpoint_currency, rate, is_rate_higher):
+def send_to_db(datetime, base_currency, endpoint_currency, rate):
     conn = None
     try:
         # Load database configuration
@@ -19,16 +17,15 @@ def send_to_db(datetime, base_currency, endpoint_currency, rate, is_rate_higher)
                     date_time TEXT,
                     base_currency TEXT,
                     endpoint_currency TEXT,
-                    conversion_rate REAL,
-                    is_rate_higher BOOLEAN)"""
+                    conversion_rate REAL)"""
         )
         # Insert data to table
         cur.execute(
             """INSERT INTO currency_query_history
                     (date_time, base_currency, endpoint_currency, 
-                    conversion_rate, is_rate_higher) 
-                    VALUES (%s, %s, %s, %s, %s)""",
-            (datetime, base_currency, endpoint_currency, rate, is_rate_higher),
+                    conversion_rate) 
+                    VALUES (%s, %s, %s, %s)""",
+            (datetime, base_currency, endpoint_currency, rate),
         )
         cur.close()
     except (Exception, psycopg2.DatabaseError) as error:
@@ -65,6 +62,4 @@ def print_from_db():
     # Print each output to single line
     for query in query_history:
         # Query[4] is boolean that decides color of printed rate
-        printing_color = get_color(query[4])
-        print(query[0], query[1], query[2], printing_color, query[3], end="")
-        print(Style.RESET_ALL)
+        print(query[0], query[1], query[2], query[3])
